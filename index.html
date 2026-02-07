@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine?</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      overflow: hidden;
+    }
+
+    .avatar {
+      margin-bottom: 20px;
+    }
+    .avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 3em;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 20px;
+      margin: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      position: absolute;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      left: 40%;
+      top: 55%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    #noBtn {
+      background-color: #fff;
+      color: #333;
+      left: 55%;
+      top: 55%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    #gif {
+      margin-top: 50px;
+      display: none;
+    }
+
+    #gif img {
+      max-width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 20px;
+      font-size: 16px;
+      color: #fff;
+      opacity: 0.8;
+      font-style: italic;
+    }
+
+    /* Floating hearts background */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 8s infinite ease-in-out;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my Valentine? ❤️</h1>
+  <button id="yesBtn">Yes</button>
+  <button id="noBtn">No</button>
+  <div id="gif">
+    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaTI1NXQ2Y3N6djJidGhuODkwdmVsaHRpeHkxbm8yNWhnYnMwNzkxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hxERQNWQudqSF1iDnr/giphy.gif" alt="Cute Valentine GIF">
+  </div>
+  <div class="hint">
+    Psst... the "No" button is just a shy one. How about going for "Yes"? 💕
+  </div>
+
+  <!-- Romantic audio -->
+  <audio id="romanticSong" loop>
+   <source src="./song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const gif = document.getElementById('gif');
+    const song = document.getElementById('romanticSong');
+
+    yesBtn.addEventListener('click', () => {
+      gif.style.display = 'block';
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+      song.play();
+    });
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+      const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    // Generate floating hearts
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 6 + Math.random() * 5 + 's';
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
